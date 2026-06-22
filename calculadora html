@@ -1,4 +1,11 @@
 <html>
+
+<div class="display">
+    <p class="texto-display">0</p>
+    </div>
+
+    <div class="botoes">
+        
 <div class="numeros">
     <button>0</button>
     <button>1</button>
@@ -18,7 +25,22 @@
     <button>-</button>
     <button>x</button>
     <button>/</button>
+    <button>=</button>
 
 </div>
 
 </div>
+
+<style>
+ .numeros button{
+   background-color:bisque;
+   color:black;
+
+}
+.operacoes button{
+   background-color:blanchedalmond;
+   color:brown;
+}
+    </style>
+
+</html>
