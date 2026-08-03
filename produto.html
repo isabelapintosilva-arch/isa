@@ -3,11 +3,13 @@
 
 <body>
 
-    <h2>Olá calouro!
-        Aqui está disponibilizado as aulas de segunda-feira</h2>
-    <img src="">
+    <div class="title">
+        <img src="https://i.imgur.com/cKEdaGo.png"/>
+        <h2>Olá calouro!
+            <br>Aqui está disponibilizado as aulas de segunda-feira</h2>
+    </div>
 
-    <div>
+    <div class="botoes">
         <button>vídeo</button>
         <button>slides</button>
     </div>
@@ -43,6 +45,24 @@
         padding: 10px;
         padding-left: 50px;
         padding-right: 50px;
+        border-radius: 40px;
+        
+    }
+
+    .title{
+        display: flex;
+        justify-content: center;
+  align-items: center;
+    }
+
+    .title img{
+        width: 300px;
+    }
+
+    .botoes{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 </html>
