@@ -21,7 +21,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      /* Gradiente do fundo escuro na esquerda para azul na direita */
+      /* Gradiente de fundo */
       background: linear-gradient(110deg, #02020a 0%, #0d1245 40%, #1e25ad 100%);
       color: #ffffff;
       padding: 20px;
@@ -34,7 +34,6 @@
       text-align: center;
       max-width: 900px;
       width: 100%;
-      position: relative;
     }
 
     /* Área da marca (Foguete + Título) */
@@ -76,7 +75,7 @@
       margin-bottom: 50px;
     }
 
-    /* Botão Fazer Login */
+    /* Botão Fazer Login (Redirecionando) */
     .btn-login {
       background: #4852f8;
       color: #ffffff;
@@ -89,6 +88,7 @@
       text-decoration: none;
       box-shadow: 0 8px 25px rgba(72, 82, 248, 0.4);
       transition: all 0.3s ease;
+      display: inline-block;
     }
 
     .btn-login:hover {
@@ -138,7 +138,7 @@
       ESTUDOS DO ENEM!
     </p>
 
-    <a href="#" class="btn-login">Fazer login</a>
+    <a href="cadastro.html" class="btn-login">Fazer login</a>
   </div>
 
 </body>
