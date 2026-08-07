@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olá Calouro - TaskUp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* Gradiente do fundo escuro na esquerda para azul na direita */
+      background: linear-gradient(110deg, #02020a 0%, #0d1245 40%, #1e25ad 100%);
+      color: #ffffff;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 900px;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Área da marca (Foguete + Título) */
+    .brand-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
+
+    .rocket-icon {
+      font-size: 130px;
+      transform: rotate(-35deg);
+      line-height: 1;
+      filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.4));
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 110px;
+      color: #2b45a2;
+      line-height: 0.9;
+      letter-spacing: -2px;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    /* Subtítulo */
+    .subtitle {
+      font-size: 28px;
+      font-weight: 700;
+      color: #8c9be8;
+      letter-spacing: 2px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      max-width: 650px;
+      margin-bottom: 50px;
+    }
+
+    /* Botão Fazer Login */
+    .btn-login {
+      background: #4852f8;
+      color: #ffffff;
+      border: 1px solid #1a237e;
+      padding: 16px 80px;
+      border-radius: 50px;
+      font-size: 22px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(72, 82, 248, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background: #3942e3;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(72, 82, 248, 0.6);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .brand-section {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .rocket-icon {
+        font-size: 90px;
+      }
+
+      .title {
+        font-size: 70px;
+        text-align: center;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .btn-login {
+        padding: 14px 50px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="brand-section">
+      <div class="rocket-icon">🚀</div>
+      <h1 class="title">Olá<br>calouro!</h1>
+    </div>
+
+    <p class="subtitle">
+      BEM-VINDO AO TASKUP<br>
+      APLICATIVO VOLTADO AOS<br>
+      ESTUDOS DO ENEM!
+    </p>
+
+    <a href="#" class="btn-login">Fazer login</a>
+  </div>
+
+</body>
+</html>
