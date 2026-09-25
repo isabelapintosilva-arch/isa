@@ -1,0 +1,397 @@
+<html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilha de Estudos Interativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b49c7;
+        }
+
+        .title-font {
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* Curved Text Effect */
+        .curved-text-container {
+            position: relative;
+            width: 320px;
+            height: 120px;
+        }
+
+        .curved-text {
+            fill: #70d6ff;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Fredoka', cursive;
+            letter-spacing: 1px;
+        }
+
+        .pink-neon-text {
+            color: #ff70a6;
+            text-shadow: 0 0 10px rgba(255, 112, 166, 0.6), 0 0 20px rgba(255, 112, 166, 0.4);
+            transform: rotate(-3deg);
+        }
+
+        /* Arrow animation */
+        @keyframes bounce-arrow {
+            0%, 100% { transform: translateY(0) rotate(15deg); }
+            50% { transform: translateY(8px) rotate(15deg); }
+        }
+
+        .animated-arrow {
+            animation: bounce-arrow 2s infinite ease-in-out;
+        }
+
+        /* Task completion styles */
+        .task-done {
+            text-decoration: line-through;
+            opacity: 0.5;
+            background-color: #f1f5f9 !important;
+        }
+
+        .task-card {
+            transition: all 0.2s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col items-center justify-start p-3 sm:p-6">
+
+    <!-- Banner Header -->
+    <header class="w-full max-w-7xl flex flex-col md:flex-row items-center justify-between my-4 px-4 gap-6">
+        <!-- Title with curved text and neon effect -->
+        <div class="flex flex-col items-center md:items-start select-none">
+            <div class="curved-text-container -mb-6">
+                <svg viewBox="0 0 500 150" class="w-full h-full">
+                    <path id="curve" fill="transparent" d="M 50,120 Q 250,20 450,120" />
+                    <text class="curved-text">
+                        <textPath href="#curve" startOffset="50%" text-anchor="middle">
+                            Aqui você tem uma planilha
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+            <div class="title-font text-3xl sm:text-5xl font-extrabold pink-neon-text bg-white/10 px-6 py-2 rounded-full border-2 border-pink-400/30 backdrop-blur-sm">
+                Feita pra você!
+            </div>
+        </div>
+
+        <!-- Decorative Animated Arrow -->
+        <div class="hidden md:flex items-center justify-center text-white/80 pr-12">
+            <svg class="w-28 h-28 animated-arrow filter drop-shadow-lg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 20 C 40 10, 70 20, 70 60" />
+                <path d="M50 50 L 70 65 L 80 40" />
+            </svg>
+        </div>
+
+        <!-- Controls / Actions -->
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="resetTasks()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-xl shadow-md transition flex items-center gap-2 border border-blue-400/30">
+                <i class="fa-solid fa-rotate-right"></i> Resetar Progresso
+            </button>
+            <button onclick="openNoteModal()" class="bg-pink-500 hover:bg-pink-600 text-white font-medium px-4 py-2 rounded-xl shadow-md transition flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square"></i> Minhas Anotações
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Schedule Container -->
+    <main class="w-full max-w-7xl bg-blue-700/30 p-3 sm:p-5 rounded-3xl backdrop-blur-md shadow-2xl border border-white/20 overflow-x-auto">
+        <div class="min-w-[850px]">
+            
+            <!-- Links Header Row ("acesse aqui" buttons) -->
+            <div class="grid grid-cols-7 gap-2 mb-3">
+                <button onclick="openLink('Segunda')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+                <button onclick="openLink('Terça')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+                <button onclick="openLink('Quarta')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+                <button onclick="openLink('Quinta')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+                <button onclick="openLink('Sexta')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+                <button onclick="openLink('Sábado')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+                <button onclick="openLink('Domingo')" class="bg-indigo-500 hover:bg-indigo-400 text-white text-xs sm:text-sm font-semibold py-2 px-1 rounded-xl shadow transition duration-200 flex items-center justify-center gap-1 border border-indigo-300/40 group">
+                    <span>acesse aqui</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </button>
+            </div>
+
+            <!-- Days Header Row -->
+            <div class="grid grid-cols-7 gap-2 mb-2 bg-blue-800/90 text-white rounded-xl py-3 px-1 text-center font-bold text-lg shadow-inner">
+                <div>Segunda</div>
+                <div>Terça</div>
+                <div>Quarta</div>
+                <div>Quinta</div>
+                <div>Sexta</div>
+                <div>Sábado</div>
+                <div>Domingo</div>
+            </div>
+
+            <!-- Schedule Grid Content -->
+            <div class="bg-white rounded-2xl p-2 shadow-xl border border-slate-200 divide-y divide-slate-100" id="schedule-grid">
+                <!-- Row 1 -->
+                <div class="grid grid-cols-7 gap-2 py-1.5">
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Linguagens</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Matematica</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Redação</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Matemática</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Filosofia</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Provas anteriores</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-emerald-50 text-emerald-800 font-medium cursor-pointer border border-emerald-200 flex items-center justify-between">
+                        <span>Descanso</span>
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="grid grid-cols-7 gap-2 py-1.5">
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Redação</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Biologia</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>História</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Física</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Sociologia</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Resumos</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-emerald-50 text-emerald-800 font-medium cursor-pointer border border-emerald-200 flex items-center justify-between">
+                        <span>Descanso</span>
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="grid grid-cols-7 gap-2 py-1.5">
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Interpretação</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Exatas</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Geografia</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Química</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Resumo da semana</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Aulas de redação</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-emerald-50 text-emerald-800 font-medium cursor-pointer border border-emerald-200 flex items-center justify-between">
+                        <span>Descanso</span>
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="grid grid-cols-7 gap-2 py-1.5">
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Escrita</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Ciências biológica</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-slate-50 text-slate-700 font-medium cursor-pointer border border-slate-200 flex items-center justify-between">
+                        <span>Escrita</span>
+                        <i class="fa-regular fa-circle text-slate-400 check-icon"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-emerald-50 text-emerald-800 font-medium cursor-pointer border border-emerald-200 flex items-center justify-between">
+                        <span>Descanso</span>
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                    </div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-emerald-50 text-emerald-800 font-medium cursor-pointer border border-emerald-200 flex items-center justify-between">
+                        <span>Descanso</span>
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                    </div>
+                    <!-- Empty Cell to maintain grid symmetry -->
+                    <div class="p-3 bg-slate-50/40 rounded-xl border border-dashed border-slate-200"></div>
+                    <div onclick="toggleTask(this)" class="task-card p-3 rounded-xl bg-emerald-50 text-emerald-800 font-medium cursor-pointer border border-emerald-200 flex items-center justify-between">
+                        <span>Descanso</span>
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-10 pointer-events-none flex items-center gap-3">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-message">Notificação</span>
+    </div>
+
+    <!-- Modal para Anotações -->
+    <div id="notes-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-lg shadow-2xl border border-slate-100 flex flex-col gap-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-book-bookmark text-pink-500"></i> Anotações do Estudante
+                </h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <p class="text-sm text-slate-500">Escreva aqui seus objetivos da semana, links importantes ou lembretes de estudo.</p>
+            <textarea id="notes-text" class="w-full h-40 p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400 text-slate-700 resize-none" placeholder="Digite suas anotações aqui..."></textarea>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeNoteModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-medium transition">Cancelar</button>
+                <button onclick="saveNotes()" class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-medium shadow transition">Salvar Anotações</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle task completion
+        function toggleTask(element) {
+            // Do not toggle icon for descanso tasks with mug icon
+            const icon = element.querySelector('.check-icon');
+            
+            if (element.classList.contains('task-done')) {
+                element.classList.remove('task-done');
+                if (icon) {
+                    icon.className = 'fa-regular fa-circle text-slate-400 check-icon';
+                }
+            } else {
+                element.classList.add('task-done');
+                if (icon) {
+                    icon.className = 'fa-solid fa-circle-check text-emerald-500 check-icon';
+                }
+                showToast('Tarefa concluída! Parabéns! 🎉');
+            }
+        }
+
+        // Action when clicking "Acesse aqui"
+        function openLink(day) {
+            showToast(`Acessando materiais de ${day}...`, 'fa-solid fa-folder-open text-blue-400');
+        }
+
+        // Reset all completed tasks
+        function resetTasks() {
+            const tasks = document.querySelectorAll('.task-card');
+            tasks.forEach(task => {
+                task.classList.remove('task-done');
+                const icon = task.querySelector('.check-icon');
+                if (icon) {
+                    icon.className = 'fa-regular fa-circle text-slate-400 check-icon';
+                }
+            });
+            showToast('Progresso semanal resetado com sucesso!');
+        }
+
+        // Toast notification system
+        function showToast(message, iconClass = 'fa-solid fa-circle-check text-emerald-400') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = message;
+            toastIcon.className = iconClass;
+
+            toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Modal for Notes
+        function openNoteModal() {
+            const modal = document.getElementById('notes-modal');
+            const savedNote = localStorage.getItem('study_notes') || '';
+            document.getElementById('notes-text').value = savedNote;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeNoteModal() {
+            const modal = document.getElementById('notes-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function saveNotes() {
+            const text = document.getElementById('notes-text').value;
+            localStorage.setItem('study_notes', text);
+            closeNoteModal();
+            showToast('Anotações salvas com sucesso!');
+        }
+    </script>
+</body>
+</html>
