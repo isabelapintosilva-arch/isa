@@ -45,12 +45,18 @@
     <footer>
         
         <img src="https://i.imgur.com/FUDCLRK.png">
-        <button>acesse sua panilha aqui!</button>
+        <button onclick="planilha()">acesse sua panilha aqui!</button>
 
 
     </footer>
     
 </body>
+
+<script>
+    function planilha(){
+        window.location.href = "planilha.html"
+    }
+</script>
 
 <style>
 body{
@@ -97,6 +103,7 @@ button{
     margin-left: 42%;
     margin-top: 10%;
     padding: 10px;
+    cursor: pointer;
 }
 
 footer img{
