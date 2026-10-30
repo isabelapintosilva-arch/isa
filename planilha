@@ -333,8 +333,20 @@
         // Action when clicking "Acesse aqui"
         function openLink(day) {
             showToast(`Acessando materiais de ${day}...`, 'fa-solid fa-folder-open text-blue-400');
-        }
+            if(day ===  "Segunda"){
+                window.location.href = './produto.html'
+            }
+            if(day === "Terça"){
+                window.location.href = './produto.html'
+            }
+            if(day === "Quarta"){
+                window.locatino.href - 
+            }
+            
 
+
+
+            }
         // Reset all completed tasks
         function resetTasks() {
             const tasks = document.querySelectorAll('.task-card');
