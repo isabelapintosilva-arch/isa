@@ -1,0 +1,292 @@
+<html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskUp - Aplicação do ENEM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #050515 0%, #111138 40%, #1e269b 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .screen {
+            width: 100%;
+            max-width: 800px;
+            min-height: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+            opacity: 1;
+            position: absolute;
+        }
+
+        .screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(50px);
+        }
+
+        /* TELA 1: BOAS-VINDAS */
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .rocket-wrapper {
+            animation: float 3s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-10deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        .rocket {
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        .title-welcome {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #3b82f6;
+            line-height: 1.1;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle-welcome {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: #a5b4fc;
+            max-width: 450px;
+            line-height: 1.5;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            margin-top: 30px;
+            background: #4f46e5;
+            color: #ffffff;
+            border: none;
+            padding: 16px 48px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        /* TELA 2: LOGIN / FORMULÁRIO */
+        .form-container {
+            width: 100%;
+            max-width: 650px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .form-title {
+            font-size: 2.2rem;
+            color: #38bdf8;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.95rem;
+            color: #93c5fd;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.6);
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #38bdf8;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .option-btn {
+            padding: 14px 18px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            color: #93c5fd;
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: #38bdf8;
+        }
+
+        .option-btn.selected {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #60a5fa;
+            color: #0f172a;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: #93c5fd;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .phone-number {
+            font-weight: bold;
+            display: block;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA 1: BOAS-VINDAS -->
+    <div id="screen1" class="screen">
+        <div class="welcome-container">
+            <div class="rocket-wrapper">
+                <svg class="rocket" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M48 16C48 16 38 18 28 28C18 38 16 48 16 48C16 48 26 46 36 36C46 26 48 16 48 16Z" fill="#E2E8F0"/>
+                    <path d="M48 16C40 16 30 22 22 30C14 38 16 48 16 48C24 48 34 42 42 34C50 26 48 16 48 16Z" fill="#F8FAFC"/>
+                    <path d="M16 48L8 56L16 52L20 60L24 44" fill="#F97316"/>
+                    <circle cx="36" cy="28" r="4" fill="#0EA5E9"/>
+                </svg>
+            </div>
+            <h1 class="title-welcome">Olá<br>calouro!</h1>
+            <p class="subtitle-welcome">Bem-vindo ao TaskUp<br>aplicativo voltado aos estudos do ENEM!</p>
+            <button class="btn-primary" onclick="goToScreen2()">Fazer login</button>
+        </div>
+    </div>
+
+    <!-- TELA 2: LOGIN / CONFIGURAÇÃO -->
+    <div id="screen2" class="screen hidden">
+        <div class="form-container">
+            <h2 class="form-title">Login de conta</h2>
+            
+            <div class="input-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Digite o seu nome">
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite o seu e-mail">
+            </div>
+
+            <div class="input-group">
+                <label>Qual horário e horas você prefere estudar?</label>
+                <div class="options-group">
+                    <button class="option-btn" onclick="selectOption(this)">Manhã (1 à 3 hrs no dia)</button>
+                    <button class="option-btn" onclick="selectOption(this)">Manhã (3 à 5 hrs no dia)</button>
+                    <button class="option-btn" onclick="selectOption(this)">Tarde (1 à 3 hrs no dia)</button>
+                    <button class="option-btn" onclick="selectOption(this)">Tarde (3 à 5 hrs no dia)</button>
+                </div>
+            </div>
+
+            <button class="btn-submit" onclick="finishLogin()">Ok</button>
+
+            <div class="footer-info">
+                Precisa de ajuda?<br>
+                entre em contato:<br>
+                <span class="phone-number">44998913918</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToScreen2() {
+            document.getElementById('screen1').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
+        }
+
+        function selectOption(element) {
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function finishLogin() {
+            const nome = document.getElementById('nome').value;
+            if(nome) {
+                alert('Bem-vindo, ' + nome + '! Cadastro concluído.');
+            } else {
+                alert('Por favor, preencha o seu nome para continuar.');
+            }
+        }
+    </script>
+</body>
+</html>
