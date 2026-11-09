@@ -283,9 +283,12 @@
             const nome = document.getElementById('nome').value;
             if(nome) {
                 alert('Bem-vindo, ' + nome + '! Cadastro concluído.');
+                localStorage.setItem("nome", nome);
             } else {
                 alert('Por favor, preencha o seu nome para continuar.');
             }
+            var nomereal = localStorage.getItem("nome");
+            alert("salvo o nome " + nomereal)
         }
     </script>
 </body>
