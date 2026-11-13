@@ -1,0 +1,46 @@
+{
+  "produto": [
+    {
+      "id": 1,
+      "video": "",
+      "slide": "",
+      "dia": "Domingo",
+    },
+    {
+      "id": 2,
+      "video": "https://www.youtube.com/playlist?list=PLDkfnrOHNxXw",
+      "slide": "https://canva.link/e8586p0ygihsi84",
+      "dia": "Segunda-feira",
+    },
+    {
+      "id": 3,
+      "video": "https://www.youtube.com/playlist?list=PLMW6ku2uHHNE",
+      "slide": "https://canva.link/98o90huw9r6husy",
+      "dia": "Terça-feira",
+    },
+    {
+      "id": 4,
+      "video": "https://www.youtube.com/playlist?list=PLLNvTHivv67w",
+      "slide": "https://canva.link/13eheor4poxnkz0",
+      "dia": "Quarta-feira",
+    },
+    {
+      "id": 5,
+      "video": "https://www.youtube.com/playlist?list=PLW35DgVKAHT4",
+      "slide": "https://canva.link/ffrhxew1f88cfap",
+      "dia": "Quinta-feira",
+    },
+    {
+      "id": 6,
+      "video": "https://www.youtube.com/playlist?list=PLWdsr1743Fi0",
+      "slide": "https://canva.link/4k1i6jig0kaoqn2",
+      "dia": "Sexta-feira",
+    },
+     {
+      "id": 7,
+      "video": "https://www.youtube.com/playlist?list=PLDkonrJm53o0",
+      "slide": "",
+      "dia": "Sábado",
+    },
+  ]
+}
