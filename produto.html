@@ -102,7 +102,7 @@
   </header>
 
   <div class="nav-buttons">
-    <a href="#" class="btn btn-video">video</a>
+    <p onclick="goOnVideo()" class="btn btn-video">video</p>
     <a href="#" class="btn btn-slides">Slides</a>
   </div>
 
@@ -110,6 +110,13 @@
     <h1 class="big-title">Aqui você</h1>
     <p class="subtitle">ENCONTRA SUAS AULA E SLIDES SOBRE O TEMA DESSE DIA, APROVEITE!</p>
   </main>
+
+  <script>
+    function goOnVideo(){
+      window.location.href = localStorage.getItem("video");
+    }
+
+  </script>
 
 </body>
 </html>
