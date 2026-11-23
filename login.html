@@ -284,6 +284,7 @@
             if(nome) {
                 alert('Bem-vindo, ' + nome + '! Cadastro concluído.');
                 localStorage.setItem("nome", nome);
+                window.location.href = "inicio.html"
             } else {
                 alert('Por favor, preencha o seu nome para continuar.');
             }
