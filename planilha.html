@@ -311,6 +311,7 @@
     </div>
 
     <script>
+        
         // Toggle task completion
         function toggleTask(element) {
             // Do not toggle icon for descanso tasks with mug icon
@@ -335,18 +336,38 @@
             showToast(`Acessando materiais de ${day}...`, 'fa-solid fa-folder-open text-blue-400');
             if(day ===  "Segunda"){
                 window.location.href = './produto.html'
+                localStorage.setItem("video", dados[1].video);
+                localStorage.setItem("slide", dados[1].slide);
             }
             if(day === "Terça"){
                 window.location.href = './produto.html'
+                window.location.href = './produto.html'
+                localStorage.setItem("video", dados[2].video);
+                localStorage.setItem("slide", dados[2].slide);
             }
-            if(day === "Quarta"){
-                window.locatino.href - 
+            if(day ===  "Quarta"){
+                window.location.href = './produto.html'
+                localStorage.setItem("video", dados[3].video);
+                localStorage.setItem("slide", dados[3].slide);
             }
+            if(day ===  "Quinta"){
+                window.location.href = './produto.html'
+                localStorage.setItem("video", dados[4].video);
+                localStorage.setItem("slide", dados[4].slide);
+            }
+            if(day ===  "Sexta"){
+                window.location.href = './produto.html'
+                localStorage.setItem("video", dados[5].video);
+                localStorage.setItem("slide", dados[5].slide);
+            }
+            if(day ===  "Sábado"){
+                window.location.href = './produto.html'
+                localStorage.setItem("video", dados[5].video);
+                localStorage.setItem("slide", dados[5].slide);
+            }
+
+        }
             
-
-
-
-            }
         // Reset all completed tasks
         function resetTasks() {
             const tasks = document.querySelectorAll('.task-card');
@@ -405,5 +426,62 @@
             showToast('Anotações salvas com sucesso!');
         }
     </script>
+
+
+<script>
+    var api = {
+  "produto": [
+    {
+      "id": 1,
+      "video": "",
+      "slide": "",
+      "dia": "Domingo",
+    },
+    {
+      "id": 2,
+      "video": "https://www.youtube.com/playlist?list=PLDkfnrOHNxXw",
+      "slide": "https://canva.link/e8586p0ygihsi84",
+      "dia": "Segunda-feira",
+    },
+    {
+      "id": 3,
+      "video": "https://www.youtube.com/playlist?list=PLMW6ku2uHHNE",
+      "slide": "https://canva.link/98o90huw9r6husy",
+      "dia": "Terça-feira",
+    },
+    {
+      "id": 4,
+      "video": "https://www.youtube.com/playlist?list=PLLNvTHivv67w",
+      "slide": "https://canva.link/13eheor4poxnkz0",
+      "dia": "Quarta-feira",
+    },
+    {
+      "id": 5,
+      "video": "https://www.youtube.com/playlist?list=PLW35DgVKAHT4",
+      "slide": "https://canva.link/ffrhxew1f88cfap",
+      "dia": "Quinta-feira",
+    },
+    {
+      "id": 6,
+      "video": "https://www.youtube.com/playlist?list=PLWdsr1743Fi0",
+      "slide": "https://canva.link/4k1i6jig0kaoqn2",
+      "dia": "Sexta-feira",
+    },
+     {
+      "id": 7,
+      "video": "https://www.youtube.com/playlist?list=PLDkonrJm53o0",
+      "slide": "",
+      "dia": "Sábado",
+    },
+  ]
+}
+
+const ids = api.produto.map(item => item.id);
+const dados = api.produto.map(item => item);
+
+alert(dados[1].video); 
+
+
+</script>
 </body>
 </html>
