@@ -365,7 +365,11 @@
                 localStorage.setItem("video", dados[5].video);
                 localStorage.setItem("slide", dados[5].slide);
             }
-
+            if(day ===  "Domingo"){
+                window.location.href = './produto.html'
+                localStorage.setItem("video", dados[6].video);
+                localStorage.setItem("slide", dados[6].slide);
+            }
         }
             
         // Reset all completed tasks
